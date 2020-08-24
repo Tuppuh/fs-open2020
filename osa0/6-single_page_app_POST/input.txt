@@ -1,0 +1,9 @@
+note over selain:
+preventdefault estää sivun lataamisen uudestaan painettaessa
+'Save' (submit). Tiedot lähetetään post-requestilla palvelimelle
+end note
+selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+note over palvelin:
+Muistiinpano tallennetaan
+end note
+palvelin-->selain: HTML-koodi 201 OK
