@@ -13,15 +13,18 @@ const Button = (props) => {
 const StatisticsLine = (props) => {
   const {text, value, unit} = props
   return(
-    <div> {text}: {value} {unit} </div>
+    <tr>
+      <td>{text}</td>
+      <td>{value} {unit}</td>
+    </tr>
   )
 }
 
 const Statistics = (props) => {
   const {good, neutral, bad} = props
   const all = good + neutral + bad
-  const average = (good*1 + bad*(-1)) / all
-  const positive = good / all
+  const average = Math.round((good*1 + bad*(-1)) / all * 100) / 100
+  const positive = Math.round((good/all) * 100) / 100
   if (all === 0){
     return(
       <>
@@ -39,12 +42,16 @@ const Statistics = (props) => {
     <h1>
       Statistics
     </h1>
-    <StatisticsLine text="good" value={good} />
-    <StatisticsLine text="neutral" value={neutral} />
-    <StatisticsLine text="bad" value={bad} />
-    <StatisticsLine text="all" value={all} />
-    <StatisticsLine text="average" value={average} />
-    <StatisticsLine text="positive" value={positive} unit={"%"} />
+    <table>
+      <tbody>
+        <StatisticsLine text="good" value={good} />
+        <StatisticsLine text="neutral" value={neutral} />
+        <StatisticsLine text="bad" value={bad} />
+        <StatisticsLine text="all" value={all} />
+        <StatisticsLine text="average" value={average} />
+        <StatisticsLine text="positive" value={positive} unit={"%"} />
+      </tbody>
+    </table>
   </>
   )
 }
