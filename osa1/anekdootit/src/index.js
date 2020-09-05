@@ -3,18 +3,31 @@ import ReactDOM from 'react-dom'
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(new Array(props.anecdotes.length).fill(0))
   const selectRandom = () => {
     const idx = Math.floor(Math.random() * 6);
     setSelected(idx)
   }
+  const vote = () => {
+    const copy = [...votes]
+    // kasvatetaan taulukon paikan idx arvoa yhdellä
+    copy[selected] += 1
+    setVotes(copy)
+  }  
 
   return (
     <div>
       <div>
         {props.anecdotes[selected]}
       </div>
+      <div>
+        has {votes[selected]} votes
+      </div>
       <button onClick={selectRandom}>
         next anecdote
+      </button>
+      <button onClick={vote}>
+        vote
       </button>
     </div>
   )
