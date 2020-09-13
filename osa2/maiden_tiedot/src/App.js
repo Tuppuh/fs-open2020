@@ -21,7 +21,7 @@ function App() {
   return (
     <div>
       <FilterForm filter={filter} setFilter={setFilter}/>
-      <CountryList countries={countries} filter={filter}/>
+      <CountryList countries={countries} filter={filter} setFilter={setFilter}/>
     </div>
   )
 }

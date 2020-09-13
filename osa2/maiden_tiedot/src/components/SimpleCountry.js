@@ -1,9 +1,10 @@
 import React from 'react'
 
-const SimpleCountry = ({country}) => {
+const SimpleCountry = ({country, setFilter}) => {
     return(
       <div>
         {country.name}
+        <button onClick={() => setFilter(country.name)}>show</button>
       </div>
     )
 }

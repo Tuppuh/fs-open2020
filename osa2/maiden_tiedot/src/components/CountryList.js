@@ -2,7 +2,7 @@ import React from 'react'
 import SimpleCountry from './SimpleCountry'
 import DetailedCountry from './DetailedCountry'
 
-const CountryList = ({countries, filter}) => {
+const CountryList = ({countries, filter, setFilter}) => {
     const filtered_countries = countries.filter(country =>
       country.name.toLowerCase().includes(filter.toLowerCase())
     )
@@ -18,7 +18,10 @@ const CountryList = ({countries, filter}) => {
     }
     return(
       <ul>
-        {filtered_countries.map(country => <SimpleCountry key={country.numericCode} country={country}/>)}
+        {filtered_countries.map(country => <SimpleCountry 
+        key={country.numericCode} 
+        country={country}
+        setFilter={setFilter}/>)}
       </ul>
     )
 }
