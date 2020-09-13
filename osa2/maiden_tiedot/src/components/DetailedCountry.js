@@ -1,6 +1,8 @@
 import React from 'react'
+import WeatherData from './WeatherData'
 
 const DetailedCountry = ({country}) => {
+
     return(
         <div>
             <h2>{country.name}</h2>
@@ -17,6 +19,7 @@ const DetailedCountry = ({country}) => {
             </ul>
             <div/>
             <img src={country.flag} alt={`${country.demonym} flag`} width="30%" height="30%"></img>
+            <WeatherData city={country.capital}/>
         </div>
     )
 }
