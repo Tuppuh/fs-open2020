@@ -1,65 +1,8 @@
 import React, { useState, useEffect }from 'react'
-import axios from 'axios'
+import PersonForm from './components/PersonForm'
+import PersonList from './components/PersonList'
+import personService from './services/persons'
 
-const Person = ({person}) => {
-  return(
-    <div>
-      {person.name} {person.number}
-    </div>
-  )
-}
-
-const PersonList = ({persons, filter}) => {
-  const filtered_persons = persons.filter( person => 
-    person.name.toLowerCase().includes(filter.toLowerCase())
-  )
-  return (
-    <ul>
-      {filtered_persons.map(person => <Person key={person.name} person={person}/>)}
-    </ul>
-  )
-}
-
-const PersonForm = ({persons, setPersons}) => {
-  const [ newName, setNewName ] = useState('')
-  const [ newNumber, setNewNumber] = useState('')
-
-  const addPerson = event => {
-    event.preventDefault()
-    if (persons.some(person => person.name === newName)){
-      window.alert(`${newName} is already added to phonebook`)
-      return
-    }
-    const newperson = {
-      name: newName,
-      number: newNumber,
-    }
-    setPersons(persons.concat(newperson))
-    setNewName('')
-    setNewNumber('')
-  }
-
-  const handleNameChange = event => {
-    setNewName(event.target.value)
-  }
-
-  const handleNumberChange = event => {
-    setNewNumber(event.target.value)
-  }
-  return(
-    <form onSubmit={addPerson}>
-      <div>
-        name: <input value={newName} onChange={handleNameChange}/>
-      </div>
-      <div>
-        number: <input value={newNumber} onChange={handleNumberChange}/>
-      </div>
-      <div>
-        <button type="submit">add</button>
-      </div>
-    </form>
-  )
-}
 
 const FilterForm = ({filter, setFilter}) => {
   const handleFilterChange = event => {
@@ -78,10 +21,10 @@ const App = () => {
   const [ filter, setFilter] = useState('')
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
+    personService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons)
       })
   }, [])
 
