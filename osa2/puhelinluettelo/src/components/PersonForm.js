@@ -1,11 +1,10 @@
 import React, { useState }from 'react'
-import personService from '../services/persons'
 
-const PersonForm = ({persons, setPersons}) => {
+const PersonForm = ({persons, addPerson}) => {
     const [ newName, setNewName ] = useState('')
     const [ newNumber, setNewNumber] = useState('')
   
-    const addPerson = event => {
+    const handleAddPerson = event => {
       event.preventDefault()
       if (persons.some(person => person.name === newName)){
         window.alert(`${newName} is already added to phonebook`)
@@ -15,13 +14,11 @@ const PersonForm = ({persons, setPersons}) => {
         name: newName,
         number: newNumber,
       }
-      personService
-        .create(newperson)
-        .then(returnedPerson => {
-            setPersons(persons.concat(newperson))
-            setNewName('')
-            setNewNumber('')
-        })
+      addPerson(newperson)
+      .then( () => {
+        setNewName('')
+        setNewNumber('')
+      })
     }
 
     const handleNameChange = event => {
@@ -33,7 +30,7 @@ const PersonForm = ({persons, setPersons}) => {
     }
 
     return(
-    <form onSubmit={addPerson}>
+    <form onSubmit={handleAddPerson}>
         <div>
         name: <input value={newName} onChange={handleNameChange}/>
         </div>
