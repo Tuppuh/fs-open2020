@@ -10,14 +10,29 @@ const App = () => {
   const [ filter, setFilter] = useState('')
 
   const addPerson = newPerson => {
-    // Return promise so that the caller can chain onto it and perform its own actions
-    return(
-      personService
-      .create(newPerson)
-      .then(returnedPerson => {
-          setPersons(persons.concat(returnedPerson))
-      })
-    )
+    const matchingPerson = persons.find(person => person.name === newPerson.name)
+    if (matchingPerson !== undefined){
+      const msg = `${newPerson.name} is already added to phonebook replace the old number with a new one?`
+      if (window.confirm(msg)){
+        return(
+          personService
+            .update(matchingPerson.id, newPerson)
+            .then(updatedPerson => {
+              setPersons(persons.map(person => person.id !== matchingPerson.id ? person : updatedPerson))
+            })
+        )
+      }
+    }
+    else{
+      // Return promise so that the caller can chain onto it and perform its own actions
+      return(
+        personService
+        .create(newPerson)
+        .then(returnedPerson => {
+            setPersons(persons.concat(returnedPerson))
+        })
+      )
+    }
   }
 
   const removePerson = id => {

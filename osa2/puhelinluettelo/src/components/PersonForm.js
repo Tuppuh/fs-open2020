@@ -6,10 +6,12 @@ const PersonForm = ({persons, addPerson}) => {
   
     const handleAddPerson = event => {
       event.preventDefault()
+      /*
       if (persons.some(person => person.name === newName)){
         window.alert(`${newName} is already added to phonebook`)
         return
       }
+      */
       const newperson = {
         name: newName,
         number: newNumber,
