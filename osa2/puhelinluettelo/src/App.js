@@ -2,12 +2,14 @@ import React, { useState, useEffect }from 'react'
 import PersonForm from './components/PersonForm'
 import PersonList from './components/PersonList'
 import FilterForm from './components/FilterForm'
+import Notification from './components/Notification'
 import personService from './services/persons'
 
 
 const App = () => {
   const [ persons, setPersons] = useState([]) 
   const [ filter, setFilter] = useState('')
+  const [ statusMessage, setStatusMessage] = useState(null)
 
   const addPerson = newPerson => {
     const matchingPerson = persons.find(person => person.name === newPerson.name)
@@ -19,6 +21,11 @@ const App = () => {
             .update(matchingPerson.id, newPerson)
             .then(updatedPerson => {
               setPersons(persons.map(person => person.id !== matchingPerson.id ? person : updatedPerson))
+              setStatusMessage({status: 'success', message: `Succesfully updated number for ${matchingPerson.name}`})
+            })
+            .catch(error => {
+              setStatusMessage({status: 'error', message: `Updating ${matchingPerson.name},
+                              probably removed from the server`})
             })
         )
       }
@@ -30,6 +37,7 @@ const App = () => {
         .create(newPerson)
         .then(returnedPerson => {
             setPersons(persons.concat(returnedPerson))
+            setStatusMessage({status: 'success', message: `Succesfully added number for ${returnedPerson.name}`})
         })
       )
     }
@@ -42,6 +50,11 @@ const App = () => {
         .remove(id)
         .then(() => {
           setPersons(persons.filter(person => person.id !== id))
+          setStatusMessage({status: 'success', message: `Deleted ${personName}`})
+        })
+        .catch(error => {
+          setStatusMessage({status: 'error', message: `Deleting ${personName} failed,
+                          probably already removed from the server`})
         })
       }
   }
@@ -57,6 +70,7 @@ const App = () => {
   return ( 
     <div>
       <h2>Phonebook</h2>
+      <Notification notification={statusMessage} setNotification={setStatusMessage}/>
       <FilterForm filter={filter} setFilter={setFilter}/>
       <h2>Add new number</h2>
       <PersonForm persons={persons} addPerson={addPerson}/>
