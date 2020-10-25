@@ -30,9 +30,9 @@ const App = () => {
   return (
     <div>
       <Notification notification={statusMessage} setNotification={setStatusMessage}/>
-      {user === null && <LoginForm setUser={setUser} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>}
+      {user === null && <LoginForm setUser={setUser} username={username} setUsername={setUsername} password={password} setPassword={setPassword} setStatusMessage={setStatusMessage}/>}
       {user !== null && <User user={user} setUser={setUser}/>}
-      {user !== null && <BlogList blogs={blogs} setBlogs={setBlogs}/>}    
+      {user !== null && <BlogList blogs={blogs} setBlogs={setBlogs} setStatusMessage={setStatusMessage}/>}    
     </div>
   )
 }

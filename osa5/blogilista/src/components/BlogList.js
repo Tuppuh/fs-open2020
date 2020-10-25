@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Blog from './Blog'
 import blogService from '../services/blogs'
 
-const BlogList = ({blogs, setBlogs}) => {
+const BlogList = ({blogs, setBlogs, setStatusMessage, }) => {
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [url, setUrl] = useState('')
@@ -20,7 +20,6 @@ const BlogList = ({blogs, setBlogs}) => {
         setUrl(event.target.value)
     }
 
-    
     const blogForm = () => (
         <form onSubmit={addBlog}>
         <div>Title:
@@ -55,6 +54,7 @@ const BlogList = ({blogs, setBlogs}) => {
             setTitle('')
             setAuthor('')
             setUrl('')
+            setStatusMessage({status: 'success', message: `A new blog ${returnedBlog.title} by ${returnedBlog.author} added`})
         })
     }
 

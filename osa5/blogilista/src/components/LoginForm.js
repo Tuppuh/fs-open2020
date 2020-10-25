@@ -1,7 +1,7 @@
 import React from 'react'
 import loginService from '../services/login'
 
-const LoginForm = ({setUser, username, setUsername, password, setPassword}) => {
+const LoginForm = ({setUser, username, setUsername, password, setPassword, setStatusMessage}) => {
 
     const handleLogin = async (event) => {
         event.preventDefault()
@@ -18,6 +18,7 @@ const LoginForm = ({setUser, username, setUsername, password, setPassword}) => {
         }
         catch(exception){
           console.log('wrong credentials')
+          setStatusMessage({status: 'error', message: 'wrong username or password'})
         }
     }
 
