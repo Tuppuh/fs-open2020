@@ -53,6 +53,18 @@ const App = () => {
       })
   }
 
+  const deleteBlog = (id) => {
+    const blogToRemove = blogs.find(blog => blog.id === id)
+    if (window.confirm(`Remove blog ${blogToRemove.title} by ${blogToRemove.author}`)){
+      blogService
+        .remove(id)
+        .then(() => {
+          setBlogs(blogs.filter(blog => blog.id !== id))
+          setStatusMessage({status: 'success', message: `Blog ${blogToRemove.title} by ${blogToRemove.author} removed`})
+        })
+    }
+  }
+
   const login = async (username, password) => {
     try{
       loginFormRef.current.toggleVisibility()
@@ -92,7 +104,7 @@ const App = () => {
       <Togglable buttonLabel='new blog' ref={blogFormRef}>
         <BlogForm createBlog={addBlog}/>
       </Togglable>
-      {user !== null && <BlogList blogs={blogs} updateBlog={updateBlog}/>}    
+      {user !== null && <BlogList blogs={blogs} updateBlog={updateBlog} user={user} deleteBlog={deleteBlog}/>}    
     </div>
   )
   
