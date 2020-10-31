@@ -29,7 +29,7 @@ const Blog = ({ blog, updateBlog, user, deleteBlog }) => {
   if (!showDetails) {
     return (
       <div style={blogStyle}>
-        {blog.title} {blog.author} 
+        {blog.title} {blog.author}
         <button onClick={() => {setShowDetails(true)}}>view</button>
       </div>
     )
@@ -41,12 +41,12 @@ const Blog = ({ blog, updateBlog, user, deleteBlog }) => {
       <div/>
       {blog.url}
       <div/>
-      Likes {blog.likes} 
+      Likes {blog.likes}
       <button onClick={handleBlogLike}>like</button>
       <div/>
       {blog.user.name}
       <div/>
-      {user.username === blog.user.username && 
+      {user.username === blog.user.username &&
         <button onClick={handleBlogDelete}>remove</button>}
     </div>
   )

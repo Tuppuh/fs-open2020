@@ -19,7 +19,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const App = () => {
       .create(blogObject)
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
-        setStatusMessage({status: 'success', message: `A new blog ${returnedBlog.title} by ${returnedBlog.author} added`})
+        setStatusMessage({ status: 'success', message: `A new blog ${returnedBlog.title} by ${returnedBlog.author} added` })
       })
   }
 
@@ -45,11 +45,11 @@ const App = () => {
     blogService
       .update(blogObject.id, blogObject)
       .then(returnedBlog => {
-          setBlogs(
-            blogs.map(blog => {
-              return blog.id === returnedBlog.id ? returnedBlog : blog
-            })
-          )
+        setBlogs(
+          blogs.map(blog => {
+            return blog.id === returnedBlog.id ? returnedBlog : blog
+          })
+        )
       })
   }
 
@@ -60,7 +60,7 @@ const App = () => {
         .remove(id)
         .then(() => {
           setBlogs(blogs.filter(blog => blog.id !== id))
-          setStatusMessage({status: 'success', message: `Blog ${blogToRemove.title} by ${blogToRemove.author} removed`})
+          setStatusMessage({ status: 'success', message: `Blog ${blogToRemove.title} by ${blogToRemove.author} removed` })
         })
     }
   }
@@ -93,7 +93,7 @@ const App = () => {
     </div>
   )
   */
-  
+
   return (
     <div>
       <Notification notification={statusMessage} setNotification={setStatusMessage}/>
@@ -104,10 +104,10 @@ const App = () => {
       <Togglable buttonLabel='new blog' ref={blogFormRef}>
         <BlogForm createBlog={addBlog}/>
       </Togglable>
-      {user !== null && <BlogList blogs={blogs} updateBlog={updateBlog} user={user} deleteBlog={deleteBlog}/>}    
+      {user !== null && <BlogList blogs={blogs} updateBlog={updateBlog} user={user} deleteBlog={deleteBlog}/>}
     </div>
   )
-  
+
 }
 
 export default App
