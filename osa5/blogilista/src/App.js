@@ -41,6 +41,18 @@ const App = () => {
       })
   }
 
+  const updateBlog = (blogObject) => {
+    blogService
+      .update(blogObject.id, blogObject)
+      .then(returnedBlog => {
+          setBlogs(
+            blogs.map(blog => {
+              return blog.id === returnedBlog.id ? returnedBlog : blog
+            })
+          )
+      })
+  }
+
   const login = async (username, password) => {
     try{
       loginFormRef.current.toggleVisibility()
@@ -51,6 +63,7 @@ const App = () => {
         'loggedBlogappUser', JSON.stringify(newUser)
       )
       setUser(newUser)
+      blogService.setToken(newUser.token)
     }
     catch (exception) {
       console.log('wrong credentials')
@@ -79,7 +92,7 @@ const App = () => {
       <Togglable buttonLabel='new blog' ref={blogFormRef}>
         <BlogForm createBlog={addBlog}/>
       </Togglable>
-      {user !== null && <BlogList blogs={blogs} setBlogs={setBlogs} setStatusMessage={setStatusMessage}/>}    
+      {user !== null && <BlogList blogs={blogs} updateBlog={updateBlog}/>}    
     </div>
   )
   
