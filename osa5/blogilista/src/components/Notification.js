@@ -30,7 +30,7 @@ const Notification = ({ notification, setNotification }) => {
     setNotification(null)
   }, duration)
   return (
-    <div style={styles[notification.status]}>
+    <div style={styles[notification.status]} className='notification'>
       {notification.message}
     </div>
   )

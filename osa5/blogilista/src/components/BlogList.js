@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 const BlogList = ({ blogs, updateBlog, user, deleteBlog }) => {
 
   return(
-    <div>
+    <div className='bloglist'>
       <ul>
         {blogs
           .sort((a, b) => {return b.likes - a.likes})

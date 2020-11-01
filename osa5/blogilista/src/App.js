@@ -28,8 +28,9 @@ const App = () => {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
       blogService.setToken(user.token)
+      loginFormRef.current.toggleVisibility()
     }
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const addBlog = (blogObject) => {
     blogFormRef.current.toggleVisibility()
@@ -37,7 +38,7 @@ const App = () => {
       .create(blogObject)
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
-        setStatusMessage({ status: 'success', message: `A new blog ${returnedBlog.title} by ${returnedBlog.author} added` })
+        setStatusMessage({ status: 'success', message: `A blog ${returnedBlog.title} by ${returnedBlog.author} added` })
       })
   }
 
@@ -67,10 +68,10 @@ const App = () => {
 
   const login = async (username, password) => {
     try{
-      loginFormRef.current.toggleVisibility()
       const newUser = await loginService.login({
         username, password
       })
+      loginFormRef.current.toggleVisibility()
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(newUser)
       )
@@ -96,12 +97,13 @@ const App = () => {
 
   return (
     <div>
+      <h2>Blogs</h2>
       <Notification notification={statusMessage} setNotification={setStatusMessage}/>
-      <Togglable buttonLabel='login' ref={loginFormRef}>
+      <Togglable buttonLabel='login' ref={loginFormRef} default={true}>
         <LoginForm login={login}/>
       </Togglable>
       {user !== null && <User user={user} setUser={setUser}/>}
-      <Togglable buttonLabel='new blog' ref={blogFormRef}>
+      <Togglable buttonLabel='new blog' ref={blogFormRef} default={false}>
         <BlogForm createBlog={addBlog}/>
       </Togglable>
       {user !== null && <BlogList blogs={blogs} updateBlog={updateBlog} user={user} deleteBlog={deleteBlog}/>}
