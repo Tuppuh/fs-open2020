@@ -2,9 +2,12 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { voteAnecdote } from '../reducers/anecdoteReducer'
 import { setNotification, removeNotification } from '../reducers/notificationReducer'
+import Filter from './Filter'
 
 const AnecdoteList = () => {
-  const anecdotes = useSelector(state => state.anecdotes)
+  const filter = useSelector(state => state.filter)
+  const anecdotes = useSelector(state => state.anecdotes.filter(anecdote => 
+    anecdote.content.toLowerCase().includes(filter.toLowerCase())))
   const dispatch = useDispatch()
 
   const vote = (id) => {
@@ -23,6 +26,7 @@ const AnecdoteList = () => {
   return (
     <>
       <h2>Anecdotes</h2>
+      <Filter/>
       <ul>
         {anecdotes.map(anecdote =>
           <div key={anecdote.id}>
