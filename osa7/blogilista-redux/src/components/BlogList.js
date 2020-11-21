@@ -1,26 +1,18 @@
 import React from 'react'
 import Blog from './Blog'
-import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 
-const BlogList = ({ blogs, updateBlog, user, deleteBlog }) => {
+const BlogList = () => {
+  const blogs = useSelector(state => state.blogs)
 
   return(
     <div className='bloglist'>
       <ul>
         {blogs
-          .sort((a, b) => {return b.likes - a.likes})
-          .map(blog => <Blog key={blog.id} blog={blog} updateBlog={updateBlog} user={user}
-            deleteBlog={deleteBlog}/>)}
+          .map(blog => <Blog key={blog.id} blog={blog}/>)}
       </ul>
     </div>
   )
-}
-
-BlogList.propTypes = {
-  blogs: PropTypes.array.isRequired,
-  updateBlog: PropTypes.func.isRequired,
-  user: PropTypes.any.isRequired,
-  deleteBlog: PropTypes.func.isRequired
 }
 
 export default BlogList

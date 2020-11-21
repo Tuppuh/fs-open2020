@@ -1,10 +1,13 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { logoutUser } from '../reducers/userReducer'
 
-const User = ({ user, setUser }) => {
+const User = () => {
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
 
   const handleLogout = () => {
-    window.localStorage.removeItem('loggedBlogappUser')
-    setUser(null)
+    dispatch(logoutUser())
   }
 
   return(

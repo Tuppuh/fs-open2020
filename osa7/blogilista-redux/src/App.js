@@ -1,37 +1,33 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import BlogList from './components/BlogList'
 import LoginForm from './components/LoginForm'
 import Notification from './components/Notification'
-import blogService from './services/blogs'
-import loginService from './services/login'
 import User from './components/User'
 import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
+import { initializeBlogs } from './reducers/blogReducer'
+import { initializeUser } from './reducers/userReducer'
+import { useDispatch, useSelector } from 'react-redux'
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
-  const [user, setUser] = useState(null)
-  const [ statusMessage, setStatusMessage] = useState(null)
+  // const [blogs, setBlogs] = useState([])
+  // const [user, setUser] = useState(null)
+  // const [ statusMessage, setStatusMessage] = useState(null)
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
 
-  const blogFormRef = React.createRef()
-  const loginFormRef = React.createRef()
-
-  useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )
-  }, [])
+  // const blogFormRef = React.createRef()
+  // const loginFormRef = React.createRef()
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-      blogService.setToken(user.token)
-      loginFormRef.current.toggleVisibility()
-    }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    dispatch(initializeBlogs())
+  }, [dispatch])
 
+  useEffect(() => {
+    dispatch(initializeUser())
+  }, [dispatch])
+
+  /*
   const addBlog = (blogObject) => {
     blogFormRef.current.toggleVisibility()
     blogService
@@ -41,7 +37,9 @@ const App = () => {
         setStatusMessage({ status: 'success', message: `A blog ${returnedBlog.title} by ${returnedBlog.author} added` })
       })
   }
+  */
 
+  /*
   const updateBlog = (blogObject) => {
     blogService
       .update(blogObject.id, blogObject)
@@ -53,7 +51,8 @@ const App = () => {
         )
       })
   }
-
+  */
+  /*
   const deleteBlog = (id) => {
     const blogToRemove = blogs.find(blog => blog.id === id)
     if (window.confirm(`Remove blog ${blogToRemove.title} by ${blogToRemove.author}`)){
@@ -65,7 +64,8 @@ const App = () => {
         })
     }
   }
-
+  */
+  /*
   const login = async (username, password) => {
     try{
       const newUser = await loginService.login({
@@ -83,7 +83,7 @@ const App = () => {
       setStatusMessage({ status: 'error', message: 'wrong username or password' })
     }
   }
-
+  */
   /*
   return(
     <div>
@@ -98,15 +98,15 @@ const App = () => {
   return (
     <div>
       <h2>Blogs</h2>
-      <Notification notification={statusMessage} setNotification={setStatusMessage}/>
-      <Togglable buttonLabel='login' ref={loginFormRef} default={true}>
-        <LoginForm login={login}/>
+      <Notification />
+      <Togglable buttonLabel='login' name='login'>
+        <LoginForm/>
       </Togglable>
-      {user !== null && <User user={user} setUser={setUser}/>}
-      <Togglable buttonLabel='new blog' ref={blogFormRef} default={false}>
-        <BlogForm createBlog={addBlog}/>
+      {user !== null && <User />}
+      <Togglable buttonLabel='new blog' name='new_blog'>
+        <BlogForm />
       </Togglable>
-      {user !== null && <BlogList blogs={blogs} updateBlog={updateBlog} user={user} deleteBlog={deleteBlog}/>}
+      {user !== null && <BlogList />}
     </div>
   )
 

@@ -1,6 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
-const Notification = ({ notification, setNotification }) => {
+const Notification = () => {
+
+  const notification = useSelector(state => state.notification)
+
   const styles = {
     success: {
       color: 'green',
@@ -24,11 +28,6 @@ const Notification = ({ notification, setNotification }) => {
     return null
   }
 
-  const duration = notification.duration === null ? notification.duration : 5000
-
-  setTimeout(() => {
-    setNotification(null)
-  }, duration)
   return (
     <div style={styles[notification.status]} className='notification'>
       {notification.message}
