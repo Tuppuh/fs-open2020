@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { likeBlog, removeBlog } from '../reducers/blogReducer'
 
-const Blog = ({ blog }) => {
-  const [showDetails, setShowDetails] = useState(false)
+const Blog = ({ blog, showDetailsDefault=false }) => {
+  const [showDetails, setShowDetails] = useState(showDetailsDefault)
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
 

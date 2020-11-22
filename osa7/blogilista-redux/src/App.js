@@ -6,6 +6,7 @@ import LoggedUser from './components/LoggedUser'
 import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
 import UserList from './components/UserList'
+import DetailedUser from './components/DetailedUser'
 import { initializeBlogs } from './reducers/blogReducer'
 import { initializeUser } from './reducers/userReducer'
 import { useDispatch, useSelector } from 'react-redux'
@@ -34,8 +35,17 @@ const App = () => {
       <Togglable buttonLabel='new blog' name='new_blog'>
         <BlogForm />
       </Togglable>
-      <UserList/>
-      {user !== null && <BlogList />}
+      <Switch>
+        <Route path='/users/:id'>
+          <DetailedUser/>
+        </Route>
+        <Route path='/users'>
+          <UserList/>
+        </Route>
+        <Route path='/blogs'>
+          <BlogList/>
+        </Route>
+      </Switch>
     </div>
   )
 
