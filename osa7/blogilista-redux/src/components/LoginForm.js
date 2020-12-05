@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { loginUser } from '../reducers/userReducer'
+import { useHistory } from 'react-router-dom'
 
 const LoginForm = () => {
   const dispatch = useDispatch()
 
   const [username, setUsername] = useState([])
   const [password, setPassword] = useState([])
+  const history = useHistory()
 
   const handleLogin = async (event) => {
     event.preventDefault()
     dispatch(loginUser(username, password))
     setUsername('')
     setPassword('')
+    history.push('/')
   }
 
   return (
