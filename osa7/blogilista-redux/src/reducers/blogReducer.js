@@ -1,5 +1,6 @@
 import blogService from '../services/blogs'
 import { setNotification } from './notificationReducer'
+import { setHidden } from './visibilityReducer'
 
 const initialState = []
 
@@ -42,7 +43,8 @@ export const createBlog = content => {
                 type: 'NEW_BLOG',
                 data: newBlog
             })
-            setNotification(`A blog ${newBlog.title} by ${newBlog.author} added`, 'success', 5000)
+            dispatch(setHidden('new_blog'))
+            dispatch(setNotification(`A blog ${newBlog.title} by ${newBlog.author} added`, 'success', 5000))
         }
         catch (exception){
             console.log('failed to add blog')
@@ -93,7 +95,7 @@ export const removeBlog = id => {
             })
         }
         catch (exception) {
-            setNotification('Failed to remove a blog', 'error', 5000)
+            dispatch(setNotification('Failed to remove a blog', 'error', 5000))
         }
     }
 }

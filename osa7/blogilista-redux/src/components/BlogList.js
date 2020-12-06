@@ -4,6 +4,12 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Togglable from './Togglable'
 import BlogForm from './BlogForm'
+import {
+  Table,
+  TableBody,
+  TableContainer,
+  Paper,
+} from '@material-ui/core'
 
 const BlogList = () => {
   const blogs = useSelector(state => state.blogs)
@@ -14,7 +20,13 @@ const BlogList = () => {
       return null
     }
     return(
-      <Blog blog={blog} showDetailsDefault={true}/>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableBody>
+            <Blog blog={blog} showDetailsDefault={true}/>
+          </TableBody>
+        </Table>
+      </TableContainer>
     )
   }
 
@@ -23,10 +35,13 @@ const BlogList = () => {
       <Togglable buttonLabel='new blog' name='new_blog'>
         <BlogForm />
       </Togglable>
-      <ul>
-        {blogs
-          .map(blog => <Blog key={blog.id} blog={blog}/>)}
-      </ul>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableBody>
+            {blogs.map(blog => <Blog key={blog.id} blog={blog}/>)}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   )
 }

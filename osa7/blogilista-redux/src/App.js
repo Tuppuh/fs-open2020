@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import Container from '@material-ui/core/Container'
 import BlogList from './components/BlogList'
 import LoginForm from './components/LoginForm'
 import Notification from './components/Notification'
@@ -22,10 +23,10 @@ const App = () => {
   }, [dispatch])
 
   return (
-    <div>
+    <Container>
       <Navigation />
-      <h2>Blogs</h2>
       <Notification />
+      <h2>Blogs</h2>
       <Switch>
         <Route path='/users/:id'>
           <DetailedUser/>
@@ -43,7 +44,7 @@ const App = () => {
           <LoginForm/>
         </Route>
       </Switch>
-    </div>
+    </Container>
   )
 
 }

@@ -1,3 +1,4 @@
+import { TextField, Button } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createBlog } from '../reducers/blogReducer'
@@ -34,7 +35,25 @@ const BlogForm = () => {
     setAuthor('')
     setUrl('')
   }
-
+  return(
+    <form onSubmit={addBlog}>
+      <div>
+        <TextField label="Title" className="titleinput" onChange={handleTitleChange}/>
+      </div>
+      <div>
+        <TextField label="Author" className="authorinput" onChange={handleAuthorChange}/>
+      </div>
+      <div>
+        <TextField label="Url" className="urlinput" onChange={handleUrlChange}/>
+      </div>
+      <div>
+        <Button variant="contained" color="primary" type="submit">
+          save
+        </Button>
+      </div>
+    </form>
+  )
+  /*
   return(
     <form onSubmit={addBlog}>
       <div>Title:
@@ -58,6 +77,7 @@ const BlogForm = () => {
       <button type="submit">save</button>
     </form>
   )
+  */
 }
 
 export default BlogForm

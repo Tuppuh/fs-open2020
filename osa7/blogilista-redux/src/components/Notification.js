@@ -27,10 +27,9 @@ const Notification = () => {
   if (notification === null){
     return null
   }
-
   return (
     <div style={styles[notification.status]} className='notification'>
-      {notification.message}
+      {notification.content}
     </div>
   )
 }
