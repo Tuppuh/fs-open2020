@@ -52,4 +52,6 @@ const calculateExcercises = (lengths: number[], target: number): excerciseResult
     }
 }
 
-console.log(calculateExcercises([3, 0, 2, 4.5, 0, 3, 1], 2))
+const argTarget: number = Number(process.argv[2])
+const argLengths: number[] = process.argv.slice(3).map(x => Number(x))
+console.log(calculateExcercises(argLengths, argTarget))
