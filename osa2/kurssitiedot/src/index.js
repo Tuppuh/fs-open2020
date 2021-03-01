@@ -2,6 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Course from './components/Course'
 
+const Testi = () => {
+  console.log('jee')
+  const list = [{m:"Hei"},{m:"Hey"},{m:"Hi"}]
+  return ( <div> list.forEach(elem => (<div key={elem.m}> elem.m </div>)) </div> )
+
+
+
+}
+
 const App = () => {
   const courses = [
     {
@@ -50,6 +59,7 @@ const App = () => {
   
   return (
     <div>
+      <Testi></Testi>
       {courses.map(course => <Course key={course.id} course={course} />)}
     </div>
   )

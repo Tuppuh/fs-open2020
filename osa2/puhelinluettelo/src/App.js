@@ -5,6 +5,14 @@ import FilterForm from './components/FilterForm'
 import Notification from './components/Notification'
 import personService from './services/persons'
 
+const Testi = () => {
+  console.log('jee')
+  return (
+    <div>
+      tere
+    </div>
+  )
+}
 
 const App = () => {
   const [ persons, setPersons] = useState([]) 
@@ -69,6 +77,7 @@ const App = () => {
 
   return ( 
     <div>
+      <Testi></Testi>
       <h2>Phonebook</h2>
       <Notification notification={statusMessage} setNotification={setStatusMessage}/>
       <FilterForm filter={filter} setFilter={setFilter}/>
