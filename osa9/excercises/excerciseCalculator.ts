@@ -18,22 +18,22 @@ const determineRating = (percentAchieved: number): excerciseRating => {
         return {
             rating: 3,
             ratingDescription: 'good, keep going'
-        }
+        };
     }
     else if (percentAchieved > 0.6){
         return {
             rating: 2,
             ratingDescription: 'not too bad but could be better'
-        }
+        };
     }
     else{
         return {
             rating: 1,
             ratingDescription: 'utter failure'
-        }
+        };
     }
 
-}
+};
 
 const calculateExcercises = (lengths: number[], target: number): excerciseResult => {
     const hourSum = lengths.reduce((a, b) => a + b, 0);
@@ -49,9 +49,11 @@ const calculateExcercises = (lengths: number[], target: number): excerciseResult
         ratingDescription: rating.ratingDescription,
         target: target,
         average: hourSum / lengths.length
-    }
-}
+    };
+};
 
-const argTarget: number = Number(process.argv[2])
-const argLengths: number[] = process.argv.slice(3).map(x => Number(x))
-console.log(calculateExcercises(argLengths, argTarget))
+export { calculateExcercises, excerciseResult };
+
+// const argTarget: number = Number(process.argv[2])
+// const argLengths: number[] = process.argv.slice(3).map(x => Number(x))
+// console.log(calculateExcercises(argLengths, argTarget))

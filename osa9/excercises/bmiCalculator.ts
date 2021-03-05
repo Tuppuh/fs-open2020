@@ -1,30 +1,30 @@
 const calculateBmi = (height: number, weight: number): string => {
     const bmi = weight / ((height/100) ** 2);
     if (bmi > 40) {
-        return "Obese Class III (Very severely obese)"
+        return "Obese Class III (Very severely obese)";
     }
     else if (bmi > 35) {
-        return "Obese Class II (Severely obese)"
+        return "Obese Class II (Severely obese)";
     }
     else if (bmi > 30) {
-        return "Obese Class I (Moderately obese)"
+        return "Obese Class I (Moderately obese)";
     }
     else if (bmi > 25) {
-        return "Overweight"
+        return "Overweight";
     }
     else if (bmi > 18.5) {
-        return "Normal (healthy weight)"
+        return "Normal (healthy weight)";
     }
     else if (bmi > 16) {
-        return "Underweight"
+        return "Underweight";
     }
     else if (bmi > 15) {
-        return "Severely underweight"
+        return "Severely underweight";
     }
     else {
-        return "Very severely underweight"
+        return "Very severely underweight";
     }
-}
+};
 
 export { calculateBmi };
 
