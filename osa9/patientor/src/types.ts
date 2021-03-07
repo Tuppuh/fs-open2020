@@ -9,15 +9,22 @@ export interface DiagnoseEntry {
     latin?: string;
 }
 
-export type NewPatientEntry = Omit<PatientEntry, 'id'>;
+export type NewPatient = Omit<Patient, 'id' | 'entries'>;
 
-export type NonSensitivePatientEntry = Omit<PatientEntry, 'ssn'>;
+// export type NonSensitivePatientEntry = Omit<PatientEntry, 'ssn'>;
 
-export interface PatientEntry {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface Entry {
+}
+
+export interface Patient {
     id: string;
     name: string;
     dateOfBirth: string;
     ssn: string;
     gender: Gender;
     occupation: string;
+    entries: Entry[]
 }
+
+export type PublicPatient = Omit<Patient, 'ssn' | 'entries'>;
