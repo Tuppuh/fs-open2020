@@ -48,6 +48,8 @@ const parseOccupation = (occupation: unknown): string => {
     return occupation;
 };
 
+// TODO: entry parsers
+
 type Fields = { name: unknown, dateOfBirth: unknown, ssn: unknown, gender: unknown, occupation: unknown};
 
 const toNewPatientEntry = ({ name, dateOfBirth, ssn, gender, occupation }: Fields): NewPatient => {

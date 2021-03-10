@@ -1,4 +1,4 @@
-import patientData from '../../data/patients.json';
+import patientData from '../../data/patients';
 import { Patient, PublicPatient, NewPatient } from '../types';
 import toNewPatientEntry from '../utils';
 import {v1 as uuid} from 'uuid';
@@ -15,6 +15,8 @@ const getEntries = (): Array<Patient> => {
 
 const findById = (id: string): Patient | undefined => {
     const entry = patients.find(p => p.id === id);
+    console.log('entry');
+    console.log(entry);
     if (entry) {
         return ({
             id: entry.id,
@@ -23,7 +25,7 @@ const findById = (id: string): Patient | undefined => {
             gender: entry.gender,
             occupation: entry.occupation,
             ssn: entry.ssn,
-            entries: []
+            entries: entry.entries,
         });
     }
     else {
@@ -32,12 +34,13 @@ const findById = (id: string): Patient | undefined => {
 };
 
 const getNonSensitiveEntries = (): Array<PublicPatient> => {
-    return patients.map(({id, name, dateOfBirth, gender, occupation}) => ({
+    return patients.map(({id, name, dateOfBirth, gender, occupation, entries}) => ({
         id,
         name,
         dateOfBirth,
         gender,
-        occupation
+        occupation,
+        entries
     }));
 };
 
