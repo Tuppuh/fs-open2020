@@ -58,6 +58,16 @@ export type Entry =
 | OccupationalHealthCareEntry
 | HealthCheckEntry;
 
+/*
+export enum EntryType {
+    "HospitalEntry" = 0,
+    "OccupationalHealthCareEntry" = 1,
+    "HealthCheckEntry" = 2
+}*/
+export type EntryType = "Hospital" | "OccupationalHealthcare" | "HealthCheck";
+
+export type NewEntry = Pick<Entry, 'type'>;
+
 export interface Patient {
     id: string;
     name: string;

@@ -1,4 +1,4 @@
-import { NewPatient, Gender } from './types';
+import { NewPatient, Gender, NewEntry, EntryType } from './types';
 
 const isString = (text: unknown): text is string => {
     return typeof text === 'string' || text instanceof String;
@@ -48,11 +48,22 @@ const parseOccupation = (occupation: unknown): string => {
     return occupation;
 };
 
+const isEntryType = (param: unknown): param is EntryType => {
+    return (param === "Hospital" || param==="OccupationalHealthcare" || param === "HealthCheck");
+};
+
+const parseType = ( type: unknown ): EntryType => {
+    if (!type || !isEntryType(type)) {
+        throw new Error('Incorrect or missing entry type: ' + type);
+    }
+    return type;
+};
+
 // TODO: entry parsers
 
 type Fields = { name: unknown, dateOfBirth: unknown, ssn: unknown, gender: unknown, occupation: unknown};
 
-const toNewPatientEntry = ({ name, dateOfBirth, ssn, gender, occupation }: Fields): NewPatient => {
+export const toNewPatientEntry = ({ name, dateOfBirth, ssn, gender, occupation }: Fields): NewPatient => {
     const newEntry: NewPatient = {
         name: parseName(name),
         dateOfBirth: parseDateOfBirth(dateOfBirth),
@@ -63,4 +74,13 @@ const toNewPatientEntry = ({ name, dateOfBirth, ssn, gender, occupation }: Field
     return newEntry;
 };
 
-export default toNewPatientEntry;
+type EntryFields = { type: unknown };
+
+export const toNewEntry = ({ type }: EntryFields ): NewEntry => {
+    const newEntry: NewEntry = {
+        type: parseType(type)
+    };
+    return newEntry;
+};
+
+// export default toNewPatientEntry;
