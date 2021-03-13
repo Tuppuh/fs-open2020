@@ -14,7 +14,7 @@ const patients: Array<Patient> = patientData.map(obj => {
         entryobj.diagnosisCodes = e.diagnosisCodes;
         entryobj.description = e.description;
         if (entryobj.type === 'HealthCheck' && e.type === 'HealthCheck'){
-            entryobj.diagnosisCodes = e.diagnosisCodes;
+            entryobj.healthCheckRating = e.healthCheckRating;
         }
         else if (entryobj.type === 'Hospital' && e.type === 'Hospital'){
             entryobj.discharge = e.discharge;
