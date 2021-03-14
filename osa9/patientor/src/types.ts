@@ -68,6 +68,12 @@ export type EntryType = "Hospital" | "OccupationalHealthcare" | "HealthCheck";
 
 export type NewEntry = Pick<Entry, 'type'>;
 
+export type NewHospitalEntry = Omit<HospitalEntry, 'id'>;
+export type NewOccupationalHealthCareEntry = Omit<OccupationalHealthCareEntry, 'id'>;
+export type NewHealthCheckEntry = Omit<HealthCheckEntry, 'id'>;
+
+export type NewEntry2 = NewHospitalEntry | NewOccupationalHealthCareEntry | NewHealthCheckEntry;
+
 export interface Patient {
     id: string;
     name: string;
