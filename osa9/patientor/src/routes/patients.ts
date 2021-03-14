@@ -20,6 +20,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/:id/entries', (req, res) => {
     try {
+        console.log(req.body);
         const newEntry = toNewEntry2(req.body);
         const patient = patientService.findById(String(req.params.id));
         if (patient) {

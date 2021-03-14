@@ -28,7 +28,7 @@ const isDischarge = (obj: unknown): obj is DischargeInfo => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isHealthRating = (param: any): param is HealthCheckRating => {
-    return Object.values(HealthCheckRating).includes(param);
+    return Object.values(HealthCheckRating).includes(parseInt(param));
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -107,7 +107,8 @@ const parseHealthRating = (rating: unknown): HealthCheckRating => {
     if (!rating || !isHealthRating(rating)) {
         throw new Error('Incorrect or missing healthcheckrating');
     }
-    return rating;
+    // switch Number(rating)
+    return Number(rating);
 };
 
 const parseDischarge = (info: unknown): DischargeInfo => {
